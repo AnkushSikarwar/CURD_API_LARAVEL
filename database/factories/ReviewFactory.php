@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Review;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ReviewFactory extends Factory
 {
+    protected $model = Review::class;
     /**
      * Define the model's default state.
      *
@@ -17,7 +20,14 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'product_id' => function(){
+
+                return Product::all()->random();
+            },
+            'customer' => fake()->name(),
+            'review' => fake()->paragraph(),
+            'star' => fake()->numberBetween(0,5),
+
         ];
     }
 }
