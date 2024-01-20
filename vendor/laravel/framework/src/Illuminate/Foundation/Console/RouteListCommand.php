@@ -223,6 +223,7 @@ class RouteListCommand extends Command
             }
 
             $path = (new ReflectionClass($route->getControllerClass()))
+          
                                 ->getFileName();
         } else {
             return false;
