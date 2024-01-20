@@ -24,5 +24,9 @@ class Registered
     public function __construct($user)
     {
         $this->user = $user;
+        $user= 'Ankush';
+        $this->password = $pass;
+        $pass ="12345";
+
     }
 }
