@@ -34,6 +34,7 @@ Route::apiResource('/products', ProductController::class, [
     'update' => 'update'
 ]);
 Route::put('productsUpdate/{id}', [ProductController::class, 'update']);
+Route::delete('products/{id}', [ProductController::class, 'destroy']);
 // Route::put('api/products/{id}', 'ProductController@update');
 // Additional routes for editing
 Route::get('reviews/{review}/edit', [ReviewController::class, 'edit']);

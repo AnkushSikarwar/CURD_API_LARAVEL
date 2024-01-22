@@ -127,7 +127,10 @@ class ProductController extends Controller
     {
 
         $product->delete();
-        return response('Deleted', 200);
+        return response(null,Response::HTTP_NO_CONTENT);
+
+
+
     }
 
 
