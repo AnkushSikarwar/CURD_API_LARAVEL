@@ -1,11 +1,4 @@
-<p align="center"><a href="#" target="_blank"><img src="https://your_project_logo.png" width="400" alt="Your Project Logo"></a></p>
 
-<p align="center">
-<a href="https://your_build_status_url"><img src="https://your_build_status_badge_url.svg" alt="Build Status"></a>
-<a href="https://your_total_downloads_url"><img src="https://your_total_downloads_badge_url.svg" alt="Total Downloads"></a>
-<a href="https://your_latest_version_url"><img src="https://your_latest_version_badge_url.svg" alt="Latest Stable Version"></a>
-<a href="https://your_license_url"><img src="https://your_license_badge_url.svg" alt="License"></a>
-</p>
 
 # Laravel E-Commerce CRUD API
 
