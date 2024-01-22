@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use Illuminate\Database\Eloquent\MassAssignmentException;
 class ProductController extends Controller
 {
 
@@ -39,6 +41,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+
 
       $product = new Product;
 
@@ -78,23 +81,43 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        // $validate = $request->validate([
-        //     'name' => 'required|max:255',
-        //     'description'=>'required',
-        //     'price'=> 'required|numeric',
-        //     'dicount' => 'required|numeric'
-        // ]);
 
-        // $product->update($validate);
-        // return response()->json($product, 200);
-        $product->update([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'discount' => $request->input('discount'),
-        ]);
+    //    $this->authorize('update', $product);
 
-        return new ProductResource($product);
+    //    $validatedData = $request->validated([
+    //     'name' => $request->name,
+    //     'description' => $request->description,
+    //     'price' => $request->price,
+    //     'discount' => $request->discount,
+    // ]);
+
+    // $product->update($validatedData);
+
+    // return response()->json($product, 200);
+
+    try{
+        $product = Product::find($product);
+        if(!$product){
+            return response()->json([
+                'message'=>'Product not found'
+            ],404);
+        }
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->discount = $request->discount;
+
+        //Return json Response
+        return response()->json([
+
+            'message' => "Product successfully updated"
+        ],200);
+    }
+    catch(\Exception $e){
+        return response()->json([
+            'message' => 'Something went really wrong!'
+        ],500);
+    }
     }
 
     /**

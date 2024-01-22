@@ -11,7 +11,9 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+    //     $product = $this->route('product');
+    // return $this->user()->can('update', $product);
+    return true;
     }
 
     /**
@@ -22,7 +24,10 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string',
+            'price' => 'sometimes|numeric|min:2000',
+            'discount' => 'sometimes|numeric|min:10|max:100',
         ];
     }
 }

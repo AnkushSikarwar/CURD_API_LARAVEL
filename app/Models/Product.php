@@ -9,8 +9,12 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillablle =[
-        'name','description','price','discount'
+        'name',
+        'description',
+        'price',
+        'discount'
     ];
+
     public function reviews(){
         return $this->hasMany(Review::class);
     }
