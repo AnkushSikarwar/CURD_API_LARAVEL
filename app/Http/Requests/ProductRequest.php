@@ -27,7 +27,7 @@ class ProductRequest extends FormRequest
             'name'=>'required|max:255|unique:products',
             'description'=>'required',
             'price'=>'required|max:10',
-            'discount'=>'required|max:2',
+            'discount'=>'required|max:4',
         ];
     }
     public function store(ProductRequest $productRequest){

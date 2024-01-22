@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 class ProductController extends Controller
 {
 
@@ -38,28 +40,20 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
 
-        // $validate = $request->validate([
-        //     'name' => 'required|max:255',
-        //     'description'=>'required',
-        //     'price'=> 'required|numeric',
-        //     'dicount' => 'required|numeric'
-        // ]);
-        // $product = Product::create($validate);
-        // return response() ->json($product, 201);
+      $product = new Product;
 
-        $product = new product;
-        $product->name = $request->name;
+      $product->name = $request->name;
+      $product->description = $request->description;
+      $product->price = $request->price;
+      $product->discount = $request->discount;
+      $product->save();
+      return response([
 
-        $product->description = $request->description;
+        'data' => new ProductResource($product)
+      ],Response::HTTP_CREATED);
 
-        $product->price = $request->price;
 
-        $product->discount = $request->discount;
-        $product->save();
-        return response([
 
-            'data' => new ProductResource($product)
-        ],201);
     }
 
     /**
