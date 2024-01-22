@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ReviewResource;
 use App\Models\Review;
+use App\Models\Product;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 
@@ -12,9 +13,10 @@ class ReviewController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index( $product)
+    public function index(Product $product)
     {
         return ReviewResource::collection($product->reviews);
+
     }
 
     /**
@@ -52,7 +54,7 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        //
+        return view('reviews.edit', compact('review'));
     }
 
     /**
@@ -60,14 +62,16 @@ class ReviewController extends Controller
      */
     public function update(UpdateReviewRequest $request, Review $review)
     {
-        $validate = $request->validate([
-            'customer' => 'required|max:255',
-            'revier'=> 'required|max:1000',
-            'star' => 'required|numeric'
-        ]);
+      $review->update([
 
-        $review->update($validate);
-        return response()->json($review, 200);
+        'customer' => $request->input('customer'),
+        'review' => $request->input('review'),
+        'star' => $request->input('star'),
+      ]);
+      return new ReviewResource($review);
+
+        // $review->update($validate);
+        // return response()->json($review, 200);
     }
 
     /**

@@ -14,6 +14,8 @@ class StoreProductRequest extends FormRequest
         return false;
     }
 
+    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +24,10 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'=>'required|max:255|unique:products',
+            'description'=>'required',
+            'price'=>'required|max:10',
+            'discount'=>'required|max:2',
         ];
     }
 }

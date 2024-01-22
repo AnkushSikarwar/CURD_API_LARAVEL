@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
@@ -19,7 +20,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        return ProductResource::collection(Product::paginate(20));
+
     }
 
     /**
@@ -37,14 +39,27 @@ class ProductController extends Controller
     {
 
         // $validate = $request->validate([
-        //     // 'name' => 'required|max:255',
-        //     // 'description'=>'required',
-        //     // 'price'=> 'required|numeric',
-        //     // 'dicount' => 'required|numeric'
+        //     'name' => 'required|max:255',
+        //     'description'=>'required',
+        //     'price'=> 'required|numeric',
+        //     'dicount' => 'required|numeric'
         // ]);
         // $product = Product::create($validate);
         // return response() ->json($product, 201);
 
+        $product = new product;
+        $product->name = $request->name;
+
+        $product->description = $request->description;
+
+        $product->price = $request->price;
+
+        $product->discount = $request->discount;
+        $product->save();
+        return response([
+
+            'data' => new ProductResource($product)
+        ],201);
     }
 
     /**
@@ -69,15 +84,23 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $validate = $request->validate([
-            'name' => 'required|max:255',
-            'description'=>'required',
-            'price'=> 'required|numeric',
-            'dicount' => 'required|numeric'
+        // $validate = $request->validate([
+        //     'name' => 'required|max:255',
+        //     'description'=>'required',
+        //     'price'=> 'required|numeric',
+        //     'dicount' => 'required|numeric'
+        // ]);
+
+        // $product->update($validate);
+        // return response()->json($product, 200);
+        $product->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'discount' => $request->input('discount'),
         ]);
 
-        $product->update($validate);
-        return response()->json($product, 200);
+        return new ProductResource($product);
     }
 
     /**
@@ -89,4 +112,6 @@ class ProductController extends Controller
         $product->delete();
         return response('Deleted', 200);
     }
+
+
 }

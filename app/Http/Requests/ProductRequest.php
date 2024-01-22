@@ -14,6 +14,8 @@ class ProductRequest extends FormRequest
         return true;
     }
 
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,5 +29,8 @@ class ProductRequest extends FormRequest
             'price'=>'required|max:10',
             'discount'=>'required|max:2',
         ];
+    }
+    public function store(ProductRequest $productRequest){
+        return $productRequest->all();
     }
 }
