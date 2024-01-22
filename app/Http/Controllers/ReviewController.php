@@ -30,15 +30,20 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReviewRequest $request)
+    public function store(StoreReviewRequest $request, Product $product)
     {
-        $validate = $request->validate([
-            'customer' => 'required|max:255',
-            'review'=> 'required|max:1000',
-            'star' => 'required|numeric'
+        // $validate = $request->validate([
+        //     'customer' => 'required|max:255',
+        //     'review'=> 'required|max:1000',
+        //     'star' => 'required|numeric'
+        // ]);
+        // $review = Review::create($validate);
+        // return response() ->json($review, 201);
+        $review = new Review($request->all());
+        $product->reviews()->save($review);
+        return response([
+            
         ]);
-        $review = Review::create($validate);
-        return response() ->json($review, 201);
     }
 
     /**

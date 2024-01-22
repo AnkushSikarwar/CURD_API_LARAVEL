@@ -37,13 +37,14 @@ Route::put('productsUpdate/{id}', [ProductController::class, 'update']);
 Route::delete('products/{id}', [ProductController::class, 'destroy']);
 // Route::put('api/products/{id}', 'ProductController@update');
 // Additional routes for editing
+
 Route::get('reviews/{review}/edit', [ReviewController::class, 'edit']);
 Route::put('reviews/{review}', [ReviewController::class, 'update']);
 
 Route::get('products/{product}/reviews', [ReviewController::class, 'index']);
 
 
-//  Route::post('/token',[ReviewController::class,'ReviewController@show']);
+ Route::post('/token',[ReviewController::class,'ReviewController@show']);
 
 Route::post('/token', [AccessTokenController::class, 'issueToken']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
